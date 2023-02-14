@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 /* Need to build a blank cell list when user clicks CLEAR ALL */
-import { buildCellList } from '../utils';
+import { buildCellList } from "../utils";
 
 /**
  * The ActionPanel component represents the interface for updating the Grid
@@ -11,30 +11,65 @@ const ActionPanel = (props) => {
   /**
    * Create constants for activeColor, cellList, and setCellList, reading them from the props
    */
-
-  return <div className="action-panel">
-    {/* 
+  const activeColor = props.activeColor;
+  const cellList = props.cellList;
+  const setCellList = props.setCellList;
+  return (
+    <div className="action-panel">
+      {/* 
       This button needs an onClick function which:
         - creates a new cell list using buildCellList
         - passes the new cell list to setCellList
     */}
-    <button>clear all</button>
-    {/* 
+      <button
+        onClick={() => {
+          let newArr = buildCellList();
+          setCellList(newArr);
+        }}
+      >
+        clear all
+      </button>
+      {/* 
       This button needs an onClick function which:
         - creates a new cell list using buildCellList
         - loops over it, setting the color on each cell to activeColor
         - passes the new cell list to setCellList
     */}
-    <button>fill all</button>
-    {/* 
-      This buttonm needs an onClick function which:
+      <button
+        onClick={() => {
+          let newArr = buildCellList();
+          for (let i = 0; i < newArr.length; i++) {
+            newArr[i].color = activeColor;
+          }
+          setCellList(newArr);
+        }}
+      >
+        fill all
+      </button>
+      {/* 
+      This button needs an onClick function which:
         - creates a new cell list using buildCellList
         - loops over the original cellList, and for each cell in it:
           - set the corresponding (by index) new cell to its color (if it has one) OR
           - set the corresponding (by index) new cell to the activeColor
     */}
-    <button>fill empty</button>
-  </div>
-}
+      <button
+        onClick={() => {
+          let newArr = buildCellList();
+          for (let i = 0; i < newArr.length; i++) {
+            if (cellList[i].color === null) {
+              newArr[i].color = activeColor;
+            } else {
+              newArr[i].color = cellList[i].color;
+            }
+          }
+          setCellList(newArr);
+        }}
+      >
+        fill empty
+      </button>
+    </div>
+  );
+};
 
 export default ActionPanel;

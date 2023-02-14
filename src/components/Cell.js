@@ -14,6 +14,7 @@ const Cell = (props) => {
 
   const color = props.color;
   const isActive = props.isActive;
+  const handleClick = props.handleClick;
 
   /**
    * For the template you need to
@@ -28,6 +29,7 @@ const Cell = (props) => {
     <div
       className={isActive ? "cell active" : "cell"}
       style={{ backgroundColor: color }}
+      onClick={handleClick}
     ></div>
   );
 };
